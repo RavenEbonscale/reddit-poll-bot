@@ -13,15 +13,21 @@ def main():
             )
     print('Connecting to reddit')
 
-    subreddit = reddit.subreddit("Your subreddit here Subreddit")
+    subreddit = reddit.subreddit("Your subreddit here")
 
     for submission in subreddit.stream.submissions():
         #converts the submissions titles to names
         names =convert_to_names(submission)
+        print(names)
         #This creates the poll after converting the title int names
         poll = create_poll(submission.title,names,reddit)
         #This locks the poll for comments, Posts the poll to the correct submsion and stickiesit
-        post_poll(poll,reddit,submission)
+        try:
+            post_poll(poll,reddit,submission)
+        except AttributeError:
+            pass
+
+
 
 
 def convert_to_names(sub):
@@ -40,7 +46,7 @@ def convert_to_names(sub):
 
 def create_poll(title,names,reddit):
     if len(names) <= 7 and len(names) > 1:
-          poll = reddit.subreddit("Poll Version Of Subreddit").submit_poll(
+          poll = reddit.subreddit("Your Poll subreddit here").submit_poll(
             title,selftext="",  options = names, duration =3
             )
           return poll
