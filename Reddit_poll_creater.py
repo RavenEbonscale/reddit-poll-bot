@@ -57,7 +57,7 @@ def create_poll(title,names,reddit):
 def post_poll(poll,reddit,submission):
     tolock = reddit.submission(poll.id)
     tolock.mod.lock()
-    comment = submission.reply(f'Vote here:{poll.shortlink}')
+    comment = submission.reply(f'Vote here: https://www.reddit.com/poll/{poll.id}')
     comment = reddit.comment(comment.id)
     comment.mod.distinguish(how="yes",sticky=True)
 main()
